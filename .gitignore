@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# The built production output is tracked to serve GitHub Pages
 dist-ssr
 *.local
 
