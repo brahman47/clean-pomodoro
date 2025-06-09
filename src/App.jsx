@@ -143,6 +143,7 @@ function App() {
   let cardBgClass = '';
   let borderColorClass = 'border-transparent';
   let buttonBgClass = '';
+  let buttonStyle = {};
   let progressBgStrokeColor = ''; // Background of the progress circle
   let backgroundStyle = {};
   let isGradientBg = false;
@@ -158,12 +159,14 @@ function App() {
   } else if (backgroundType === 'solid') {
     backgroundStyle = { background: bgColor1 };
     cardBgClass = 'bg-black/30 border-white/20';
-    buttonBgClass = `text-white shadow-lg bg-[${bgColor1}]`;
+    buttonBgClass = `text-white shadow-lg`;
+    buttonStyle = { background: bgColor1 };
     progressBgStrokeColor = 'rgba(255, 255, 255, 0.15)';
   } else if (backgroundType === 'gradient' || backgroundType === 'preset') {
     backgroundStyle = { background: `linear-gradient(to bottom right, ${bgColor1}, ${bgColor2})` };
     cardBgClass = 'bg-black/25 border-white/20';
-    buttonBgClass = `text-white shadow-lg bg-gradient-to-r from-[${bgColor1}] to-[${bgColor2}]`;
+    buttonBgClass = `text-white shadow-lg`;
+    buttonStyle = { background: `linear-gradient(to right, ${bgColor1}, ${bgColor2})` };
     progressBgStrokeColor = 'rgba(255, 255, 255, 0.15)';
     isGradientBg = true;
   }
@@ -243,10 +246,19 @@ function App() {
             </div>
             {/* Control Buttons */}
             <div className="flex space-x-4">
-                <Button onClick={handleStartPause} className={`${buttonBgClass} h-12 px-6`} disabled={timeLeft <= 0 && !isRunning} title={timeLeft <= 0 && !isRunning ? "Reset timer or change settings" : (isRunning ? "Pause Timer" : "Start Timer")}> {isRunning ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />} {isRunning ? 'Pause' : 'Start'} </Button>
-                <Button onClick={handleReset} className={`${buttonBgClass} h-12 px-6`}> <RotateCw className="mr-2 h-5 w-5"/> Reset </Button>
-                <Button onClick={handleToggleSettings} className={`${buttonBgClass} w-12 h-12 p-0 flex items-center justify-center`} title="Open Settings"> <Settings className="h-5 w-5"/> </Button>
-                <Button onClick={handleToggleNotepad} className={`${buttonBgClass} w-12 h-12 p-0 flex items-center justify-center`} title="Open Notepad"> <Notebook className="h-5 w-5"/> </Button>
+                <Button onClick={handleStartPause} className={`${buttonBgClass} h-12 px-6`} style={buttonStyle} disabled={timeLeft <= 0 && !isRunning} title={timeLeft <= 0 && !isRunning ? "Reset timer or change settings" : (isRunning ? "Pause Timer" : "Start Timer")}>
+                    {isRunning ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />}
+                    {isRunning ? 'Pause' : 'Start'}
+                </Button>
+                <Button onClick={handleReset} className={`${buttonBgClass} h-12 px-6`} style={buttonStyle}>
+                    <RotateCw className="mr-2 h-5 w-5"/> Reset
+                </Button>
+                <Button onClick={handleToggleSettings} className={`${buttonBgClass} w-12 h-12 p-0 flex items-center justify-center`} style={buttonStyle} title="Open Settings">
+                    <Settings className="h-5 w-5"/>
+                </Button>
+                <Button onClick={handleToggleNotepad} className={`${buttonBgClass} w-12 h-12 p-0 flex items-center justify-center`} style={buttonStyle} title="Open Notepad">
+                    <Notebook className="h-5 w-5"/>
+                </Button>
             </div>
          </CardContent>
       </Card>
